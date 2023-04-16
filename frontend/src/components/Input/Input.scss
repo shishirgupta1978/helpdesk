@@ -1,0 +1,97 @@
+
+
+
+$primary-color: #fff;
+$accent-color: rgba(255,255,255,0.1);
+$font-color: #fff;
+$placeholder-color: #999;
+
+
+// Mixins
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+  }
+  
+  @mixin box-shadow($shadow) {
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
+  }
+  
+  @mixin transition($properties, $duration) {
+    -webkit-transition: $properties $duration;
+    -moz-transition: $properties $duration;
+    transition: $properties $duration;
+  }
+  
+  // Input Styles
+  .input {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+   // max-width: 320px;
+  }
+  
+  .input__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 10px;
+    padding: 0 4px;
+    font-size:1.2rem;
+    font-weight: 700;
+    backdrop-filter: blur(9px);
+
+    color: $placeholder-color;
+    @include transition(color, 0.2s ease-in-out);
+  }
+  
+  .input__field {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    color: $font-color;
+    background-color: transparent;
+    border: 2px solid $placeholder-color;
+    @include border-radius(4px);
+    @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+    @include transition(all, 0.2s ease-in-out);
+  
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+  
+      ~ .input__label {
+        color: $primary-color;
+      }
+    }
+  
+    &:valid {
+      border-color: $accent-color;
+    }
+  
+    &:invalid {
+      border-color: $accent-color;
+    }
+  
+    &:placeholder-shown ~ .input__label {
+      font-size: 20px;
+      cursor: text;
+      top: 24px;
+      left: 0;
+      @include transition(all, 0.2s ease-in-out);
+    }
+  
+    &:not(:placeholder-shown) ~ .input__label,
+    &:focus ~ .input__label {
+      font-size: 14px;
+      cursor: pointer;
+      top: -8px;
+      left: 0;
+      color: $primary-color;
+      @include transition(all, 0.2s ease-in-out);
+    }
+  }
+  

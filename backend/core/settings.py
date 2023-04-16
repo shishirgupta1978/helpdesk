@@ -168,7 +168,7 @@ logging.config.dictConfig(
                 "level": "INFO",
                 "class": "logging.FileHandler",
                 "formatter": "file",
-                "filename": BASE_DIR.parent / "log.log",
+                "filename": BASE_DIR.parent / "log.txt",
             },
             "django.server": DEFAULT_LOGGING["handlers"]["django.server"],
         },
