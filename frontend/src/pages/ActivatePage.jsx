@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { MDBBtn, MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import { FaCheckCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Spinner from "../components/Spinner";
-import Title from "../components/Title";
+import {Spinner,Title} from "../components";
 import { activate, reset } from "../features/auth/authSlice";
 
-const ActivatePage = () => {
+export const ActivatePage = () => {
 	const { uid, token } = useParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -18,16 +17,13 @@ const ActivatePage = () => {
 	);
 
 	useEffect(() => {
-		if (isError) {
-			toast.error(message);
-		}
 
 		if (isSuccess) {
 			navigate("/");
 		}
 
 		dispatch(reset());
-	}, [isError, isSuccess, message, navigate, dispatch]);
+	}, [isSuccess, message, navigate, dispatch]);
 
 	const submitHandler = () => {
 		const userData = {
@@ -42,21 +38,21 @@ const ActivatePage = () => {
 	return (
 		<>
 			<Title title="Activate User" />
-			<Container>
-				<Row>
-					<Col className="mg-top text-center">
+			<MDBContainer>
+				<MDBRow>
+					<MDBCol className="mg-top text-center">
 						<section>
 							<h1>
 								<FaCheckCircle /> Activate your account
 							</h1>
 							<hr className="hr-text" />
 						</section>
-					</Col>
-				</Row>
+					</MDBCol>
+				</MDBRow>
 				{isLoading && <Spinner />}
-				<Row className="mt-3">
-					<Col className="text-center">
-						<Button
+				<MDBRow className="mt-3">
+					<MDBCol className="text-center">
+						<MDBBtn
 							type="submit"
 							variant="outline-success"
 							size="lg"
@@ -64,12 +60,12 @@ const ActivatePage = () => {
 							onClick={submitHandler}
 						>
 							Activate
-						</Button>
-					</Col>
-				</Row>
-			</Container>
+						</MDBBtn>
+					</MDBCol>
+				</MDBRow>
+			</MDBContainer>
 		</>
 	);
 };
 
-export default ActivatePage;
+

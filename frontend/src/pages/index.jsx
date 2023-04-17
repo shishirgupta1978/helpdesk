@@ -9,5 +9,7 @@ export * from './LoginPage'
 export * from "./RegisterPage"
 export * from "./ForgetPassword"
 export * from "./ResetPassword"
+export * from "./ChangePasswordPage"
 export * from "./TicketQueue"
 export * from "./NotFound"
+export * from "./ActivatePage"

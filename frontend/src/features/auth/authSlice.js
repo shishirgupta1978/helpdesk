@@ -6,7 +6,8 @@ import { toast } from "react-toastify";
 
 
 const initialState = {
-	user: localStorage.getItem("auth-tokens-development") ? jwt_decode(JSON.parse(localStorage.getItem("auth-tokens-development")).accessToken) : null,
+	//user: localStorage.getItem("auth-tokens-development") ? jwt_decode(JSON.parse(localStorage.getItem("auth-tokens-development")).accessToken) : null,
+	user: isLoggedIn() ? jwt_decode(getAccessToken()) : null,
 	isError: false,
 	isLoading: false,
 	isSuccess: false,
@@ -30,6 +31,44 @@ export const register = createAsyncThunk(
 		}
 	}
 );
+
+export const forgetpassword = createAsyncThunk(
+	"auth/forgetpassword",
+	async (user, thunkAPI) => {
+		try {
+			return await authService.forgetpassword(user);
+		} catch (error) {
+			const message =
+				(error.response &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString();
+				toast.error(message);
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+
+export const changepassword = createAsyncThunk(
+	"auth/changepassword",
+	async (user, thunkAPI) => {
+		try {
+			return await authService.changepassword(user);
+		} catch (error) {
+			const message =
+				(error.response &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString();
+				toast.error(message);
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
 
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
 	try {
@@ -129,7 +168,31 @@ export const authSlice = createSlice({
 				state.isError = true;
 				state.message = action.payload;
 				state.user = null;
-			});
+			}).addCase(changepassword.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(changepassword.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isSuccess = true;
+				toast.success("Request completed successfully.")
+			})
+			.addCase(changepassword.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isError = true;
+			}).addCase(forgetpassword.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(forgetpassword.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isSuccess = true;
+				toast.success("Request completed successfully.")
+			})
+			.addCase(forgetpassword.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isError = true;
+			})
+
+			;
 	},
 });
 

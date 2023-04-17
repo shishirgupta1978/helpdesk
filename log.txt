@@ -1,0 +1,31 @@
+2023-04-17 09:28:22,795 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-17 09:30:33,708 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-17 09:56:55,421 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-17 15:34:39,123 django.request WARNING  Not Found: /
+2023-04-17 15:34:39,263 django.request WARNING  Not Found: /favicon.ico
+2023-04-17 16:00:01,574 django.request WARNING  Bad Request: /api/auth/users/
+2023-04-17 16:00:30,312 django.request WARNING  Bad Request: /api/auth/users/
+2023-04-17 16:06:33,983 django.request ERROR    Internal Server Error: /api/auth/users/me
+Traceback (most recent call last):
+  File "D:\Projects\helpdesk\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\helpdesk\.venv\Lib\site-packages\django\utils\deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\helpdesk\.venv\Lib\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\helpdesk\.venv\Lib\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 127.0.0.1:8000/api/auth/users/me/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+2023-04-17 16:14:47,900 django.request WARNING  Unauthorized: /api/auth/users/set_password/
+2023-04-17 16:14:56,352 django.request WARNING  Unauthorized: /api/auth/users/set_password/
+2023-04-17 16:15:05,761 django.request WARNING  Unauthorized: /api/auth/users/set_password/
+2023-04-17 16:16:21,516 django.request WARNING  Not Found: /api/auth//users/reset_password/
+2023-04-17 16:16:29,997 django.request WARNING  Not Found: /api/auth//users/reset_password/
+2023-04-17 16:22:00,605 django.utils.autoreload INFO     D:\Projects\helpdesk\backend\core\settings.py changed, reloading.
+2023-04-17 16:22:11,661 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-17 16:22:23,766 django.utils.autoreload INFO     D:\Projects\helpdesk\backend\core\settings.py changed, reloading.
+2023-04-17 16:22:27,013 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-17 16:22:52,635 django.utils.autoreload INFO     D:\Projects\helpdesk\backend\core\settings.py changed, reloading.

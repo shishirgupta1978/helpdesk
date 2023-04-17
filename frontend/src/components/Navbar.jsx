@@ -2,7 +2,6 @@ import React,{useEffect, useState} from 'react'
 import {NavLink} from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import {FaBars,FaTimes} from 'react-icons/fa'
-import { isLoggedIn, setAuthTokens, clearAuthTokens, getAccessToken, getRefreshToken } from 'axios-jwt'
 import { useNavigate } from "react-router-dom";
 import { Spinner } from './Spinner';
 import {
@@ -87,8 +86,8 @@ export const Navbar = () => {
                 {user.email}
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  <MDBDropdownItem tag={NavLink}  className='nav-link bg-dark'  to="/profile">Profile</MDBDropdownItem>
-                  <MDBDropdownItem  className='nav-link bg-dark' tag={NavLink}>Change Password</MDBDropdownItem>
+                  <MDBDropdownItem tag={NavLink}  className='nav-link bg-dark' to="/profile">Profile</MDBDropdownItem>
+                  <MDBDropdownItem  className='nav-link bg-dark' to="/changepassword" tag={NavLink}>Change Password</MDBDropdownItem>
                   <MDBDropdownItem  className='nav-link bg-dark' tag={NavLink} onClick={logoutHandler}><FaSignOutAlt /> Logout</MDBDropdownItem>
                 </MDBDropdownMenu>
               </MDBDropdown>

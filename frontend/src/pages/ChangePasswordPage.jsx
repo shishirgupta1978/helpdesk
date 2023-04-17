@@ -5,14 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {Spinner,Title} from "../components";
-import { register, reset } from "../features/auth/authSlice";
+import { changepassword, reset } from "../features/auth/authSlice";
 
-export const RegisterPage = () => {
+export const ChangePasswordPage = () => {
 	const [formData, setFormData] = useState({
-		username:'',
-		email: '',
-		password: '',
-		re_password: ''
+		current_password: '',
+		new_password: '',
+		re_new_password: ''
 	  });
 
 	  const handleChange = (event) => {
@@ -30,31 +29,26 @@ export const RegisterPage = () => {
 	);
 
 	useEffect(() => {
-		if (isSuccess) {
-			navigate("/login");
-			
-		}
-
 		dispatch(reset());
-	}, [isError, isSuccess, navigate, dispatch]);
+	}, [isError, isSuccess,  navigate, dispatch]);
 
 	const submitHandler = (e) => {
 		e.preventDefault();
 
-		if (formData.password !== formData.re_password) {
+		if (formData.new_password !== formData.re_new_password) {
 			toast.error("Passwords do not match");
 		} else {
-			dispatch(register(formData));
+			dispatch(changepassword(formData));
 		}
 	};
 	return (
 		<>
-			<Title title="Register" />
+			<Title title="Change Password" />
 			<br/>
 			<MDBContainer className="bg-white p-4 "  style={{width:'320px',margin:"auto", borderRadius:"15px"}}>				
 					
 							<h3 className="text-center">
-								<FaUser /> Register
+								<FaUser /> Change Password
 							</h3>
 							<hr className="hr-text" />
 	
@@ -62,11 +56,10 @@ export const RegisterPage = () => {
 				<MDBRow className="mt-3">
 					<MDBCol className="justify-content-center">
 						<form onSubmit={submitHandler}>
-						<MDBInput  label='Username' type='text' name='username' value={formData.username} onChange={handleChange} className="mb-3" required/>
+						<MDBInput  label='Current Password' type='password' name='current_password' value={formData.current_password} onChange={handleChange} className="mb-3" required/>
 
-						<MDBInput  label='Email Address' type='email' name='email' value={formData.email} onChange={handleChange} className="mb-3" required/>
-							<MDBInput  label='Password' type='password' name='password' value={formData.password} onChange={handleChange}  className="mb-3" required/>
-							<MDBInput  label='Confirm Password' type='password' name='re_password' value={formData.re_password} onChange={handleChange}  className="mb-3" required/>
+						<MDBInput  label='New Password' type='password' name='new_password' value={formData.new_password} onChange={handleChange} className="mb-3" required/>
+							<MDBInput  label='Confirm New Password' type='password' name='re_new_password' value={formData.re_new_password} onChange={handleChange}  className="mb-3" required/>
 
 							
 							<MDBBtn
@@ -74,18 +67,13 @@ export const RegisterPage = () => {
 								color="dark"
 								className="mt-3 w-100"
 							>
-								Sign Up
+								Update
 							</MDBBtn>
 						</form>
 					</MDBCol>
 				</MDBRow>
 
-				<MDBRow className="py-3">
-					<MDBCol>
-						Have an account already? 
-						<Link to="/login"> Login</Link>
-					</MDBCol>
-				</MDBRow>
+				
 			</MDBContainer>
 		</>
 	);

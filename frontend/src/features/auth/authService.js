@@ -5,8 +5,24 @@ const REGISTER_URL = "/api/auth/users/";
 const LOGIN_URL = "api/token/";
 const ACTIVATE_URL = "/api/auth/users/activation/";
 const DASHBOARD_URL = "/api/auth/users/me";
+const CHANGEPASSWORD_URL = "/api/auth/users/set_password/";
+const FORGETPASSWORD_URL = "/api/auth/users/reset_password/";
 
 // Register user
+
+const changepassword = async (userData) => {
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "Bearer " + getAccessToken()
+		},
+	};
+
+	const response = await axiosInstance.post(CHANGEPASSWORD_URL, userData, config);
+	return response.data;
+};
+
+
 const register = async (userData) => {
 	const config = {
 		headers: {
@@ -17,6 +33,20 @@ const register = async (userData) => {
 	const response = await axiosInstance.post(REGISTER_URL, userData, config);
 	return response.data;
 };
+
+
+const forgetpassword = async (userData) => {
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	const response = await axiosInstance.post(FORGETPASSWORD_URL, userData, config);
+	return response.data;
+};
+
+
 
 // Login user
 
@@ -47,6 +77,6 @@ const activate = async (userData) => {
 	return response.data;
 };
 
-const authService = { register, login, activate };
+const authService = { register, login, activate,changepassword,forgetpassword };
 
 export default authService;

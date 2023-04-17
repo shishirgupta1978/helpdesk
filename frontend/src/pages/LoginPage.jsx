@@ -55,7 +55,7 @@ export const LoginPage = () => {
 		<>
 			<Title title="login" />
 			<br/>
-			<MDBContainer className="bg-white p-4"  style={{width:'320px',margin:"auto", borderRadius:"15px"}}>
+			<MDBContainer className="bg-white p-4"  style={{width:'350px',margin:"auto", borderRadius:"15px"}}>
 			
 							<h3 className="text-center">
 								<FaSignInAlt /> Login
@@ -68,6 +68,15 @@ export const LoginPage = () => {
 						<form onSubmit={submitHandler}>
 							<MDBInput  label='Email Address' type='email' name='email' value={formData.email} onChange={handleChange} className="mb-3" required/>
 							<MDBInput  label='Password' type='password' name='password' value={formData.password} onChange={handleChange}  className="mb-3" required/>
+							<MDBRow>
+							<MDBCol>
+						
+							<input type="checkbox"/> Remember me
+					</MDBCol>
+					<MDBCol>
+						<Link to="/forgetpassword"> Forget password?</Link>
+					</MDBCol>
+				</MDBRow>
 							<MDBBtn type="submit" color="dark" className="mt-3 w-100">Sign In</MDBBtn>
 						</form>
 					</MDBCol>
