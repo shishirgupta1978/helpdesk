@@ -19,7 +19,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "corsheaders",
     "account",
-    "djoser"
+    "djoser",
+    "ticket"
 
 ]
 

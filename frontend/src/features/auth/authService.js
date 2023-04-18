@@ -7,6 +7,7 @@ const ACTIVATE_URL = "/api/auth/users/activation/";
 const DASHBOARD_URL = "/api/auth/users/me";
 const CHANGEPASSWORD_URL = "/api/auth/users/set_password/";
 const FORGETPASSWORD_URL = "/api/auth/users/reset_password/";
+const RESETPASSWORD_URL = "/api/auth/users/reset_password/";
 
 // Register user
 
@@ -22,6 +23,17 @@ const changepassword = async (userData) => {
 	return response.data;
 };
 
+const resetpassword = async (userData) => {
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+			
+		},
+	};
+
+	const response = await axiosInstance.post(RESETPASSWORD_URL, userData, config);
+	return response.data;
+};
 
 const register = async (userData) => {
 	const config = {
@@ -77,6 +89,6 @@ const activate = async (userData) => {
 	return response.data;
 };
 
-const authService = { register, login, activate,changepassword,forgetpassword };
+const authService = { register, login, activate,changepassword,forgetpassword,resetpassword };
 
 export default authService;

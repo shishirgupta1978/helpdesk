@@ -30,3 +30,8 @@ RuntimeError: You called this URL via POST, but the URL doesn't end in a slash a
 2023-04-17 16:22:27,013 django.utils.autoreload INFO     Watching for file changes with StatReloader
 2023-04-17 16:22:52,635 django.utils.autoreload INFO     D:\Projects\helpdesk\backend\core\settings.py changed, reloading.
 2023-04-17 16:22:56,443 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-17 17:35:51,354 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-17 17:36:34,344 django.request WARNING  Unauthorized: /api/auth/users/reset_password_confirm/
+2023-04-17 17:36:35,406 django.request WARNING  Not Found: /favicon.ico
+2023-04-18 15:22:15,495 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-18 15:22:57,231 django.utils.autoreload INFO     Watching for file changes with StatReloader
