@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import {MDBContainer,MDBNavbar,MDBNavbarBrand, MDBNavbarToggler, MDBIcon, MDBNavbarNav, MDBNavbarItem, MDBNavbarLink, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBCollapse } from 'mdb-react-ui-kit';
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+import { IntroImg } from '..';
 
 export const Navbar = () => {
   const { context,setContext } = useContext(MyContext);
@@ -39,7 +40,7 @@ export const Navbar = () => {
           <MDBCollapse navbar show={showBasic}>
             <MDBNavbarNav className='ml-auto mb-2 mb-lg-0 justify-content-end' >
               <MDBNavbarItem>
-                <MDBNavbarLink tag={NavLink}  to="/" active aria-current='page'>
+                <MDBNavbarLink tag={NavLink}  to="/dashboard" active aria-current='page'>
                   Home
                 </MDBNavbarLink>
               </MDBNavbarItem>
@@ -63,7 +64,13 @@ export const Navbar = () => {
               <MDBNavbarItem>
               <MDBDropdown>
                 <MDBDropdownToggle  tag={NavLink} className='nav-link' role='button'>
-                {context.user.email}
+                {context.user.email} <img
+                src={context.user.pdrofile_pic ? context.user.profile_pic : IntroImg}
+                alt=''
+                style={{ width: '28px', height: '28px' }}
+                className='rounded-circle'
+              />
+
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
                   <MDBDropdownItem tag={NavLink}  className='nav-link bg-dark' to="/profile">Profile</MDBDropdownItem>

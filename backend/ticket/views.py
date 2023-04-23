@@ -1,4 +1,5 @@
 import datetime
+from django.utils import timezone
 from django.shortcuts import render,redirect
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
@@ -7,7 +8,7 @@ from .models import Ticket
 from .form import CreateTicketForm,UpdateTicketForm
 from account.models import User
 from django.contrib.auth.decorators import login_required
-from .serializers import TicketSerializer
+from .serializers import TicketSerializer,TicketCreateSerializer
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -157,7 +158,7 @@ def api_create_ticket(request):
     data["created_by"]=request.user.pk
     data["ticket_status"]="Pending"
     print(data)
-    serializer = TicketSerializer(data=data)
+    serializer = TicketCreateSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -227,7 +228,7 @@ def api_accept_ticket(request,pk):
 
     ticket.assigned_to=request.user
     ticket.ticket_status="Active"
-    ticket.accepted_date=datetime.datetime.now()
+    ticket.accepted_date=datetime.datetime.now(tz=timezone.utc)
     ticket.save()
     return Response({"message":"Ticket has been accepted. Please resolve as soon as possible!"},status=status.HTTP_200_OK)
 

@@ -6,7 +6,10 @@
   padding: 0;
   font-family: "Outfit", sans-serif;
 }
-
+th{
+	text-transform: uppercase;
+	font-size: large;
+}
 main {
 	min-height: 94vh;
 	background-color: #0000001c;
@@ -44,13 +47,13 @@ footer {
 	margin-top: -8px !important;
 }
 .notfound {
-	margin-top: 20rem;
+	margin-top: 12rem;
 }
 h1.notfound {
-	font-size: 7rem;
+	font-size: 5rem;
 }
 .broken-heart {
-	font-size: 7rem;
+	font-size: 5rem;
 	color: crimson;
 }
 .sad-tear {

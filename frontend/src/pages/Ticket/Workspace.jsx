@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState,useContext, useCallback } from 'react'
+import { NavLink } from 'react-router-dom'
+import {MyContext,axiosApi} from "../..";
+import { toast } from 'react-toastify';
+
+
 
 export const Workspace = () => {
-  const tickets=[]
+    const [data,setData]=useState({'is_loading':false,'is_error':false,'is_success':false,'result':null,'message':null})
+    const [acceptData,setAcceptData]=useState({'is_loading':false,'is_error':false,'is_success':false,'result':null,'message':null})
+    const [id,setId]=useState(0)
+    
+
+
+    
+    const { context,setContext } = useContext(MyContext);
+useEffect(()=>{
+    const token=localStorage.getItem("Tokens") ? JSON.parse(localStorage.getItem("Tokens"))?.access :''
+    const config={method:"get",headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token}}
+    
+    axiosApi("ticket/api/workspace/",config,setData);
+    
+
+},[context.user,id])
+
 
   return (
 <div className="card mx-auto" style={{width: '76rem'}}>
@@ -19,8 +40,8 @@ export const Workspace = () => {
                 </tr>
             </thead>
             <tbody>
-                {tickets.map((ticket)=> <tr key={ticket.id}><td><small>{ticket.ticket_number}</small></td><td><small>{ticket.title}</small></td><td><small>{ticket.date_created}</small></td><td><small>
-                   {ticket.created_by}</small></td><td>{ticket.ticket_status == 'Active'?<span className="badge bg-success">Active</span>:""}{ticket.ticket_status == 'Pending' ? <span className="badge bg-warning">Pending</span>:""}{ticket.ticket_status == 'Completed' ? <span className="badge bg-danger">Completed</span>:""}</td><td><small><a href={`\ticket-details\${ticket.pk}`}>View Details</a></small></td></tr> ) }
+                {data.result && data.result.map((ticket)=> <tr key={ticket.id}><td><small>{ticket.ticket_number}</small></td><td><small>{ticket.title}</small></td><td><small>{ticket.date_created?.toLocaleString('en-IN',{dateStyle:'short',timeStyle:'medium'})}</small></td><td><small>
+                   {ticket.created_by?.username}</small></td><td>{ticket.ticket_status == 'Active'?<span className="badge bg-success">Active</span>:""}{ticket.ticket_status == 'Pending' ? <span className="badge bg-warning">Pending</span>:""}{ticket.ticket_status == 'Completed' ? <span className="badge bg-danger">Completed</span>:""}</td><td><small><NavLink to={`/ticket_details/${ticket.id}`}>View Details</NavLink></small></td></tr> ) }
             </tbody>
         </table>
     </div>

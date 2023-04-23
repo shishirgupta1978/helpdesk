@@ -97,7 +97,7 @@ TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 
 USE_TZ = True
-
+DATETIME_FORMAT = '%d-%m-%Y %H:%M:%S' 
 
 STATIC_URL = "static/"
 

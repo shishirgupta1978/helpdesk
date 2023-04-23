@@ -408,3 +408,70 @@ TypeError: keys must be str, int, float, bool or None, not module
 2023-04-23 12:05:00,073 django.utils.autoreload INFO     Watching for file changes with StatReloader
 2023-04-23 12:06:15,418 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\views.py changed, reloading.
 2023-04-23 12:06:17,637 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 12:29:16,843 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 12:50:39,461 django.request WARNING  Not Found: /ticket/api/accept-ticket/[object Object]/
+2023-04-23 12:50:46,921 django.request WARNING  Not Found: /ticket/api/accept-ticket/[object Object]/
+2023-04-23 12:50:49,034 django.request WARNING  Not Found: /ticket/api/accept-ticket/[object Object]/
+2023-04-23 12:54:12,495 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 12:54:42,734 django.request WARNING  Unauthorized: /api/token/
+2023-04-23 13:15:01,678 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\views.py changed, reloading.
+2023-04-23 13:15:03,769 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 13:18:23,693 django.request WARNING  Unauthorized: /api/token/
+2023-04-23 13:36:51,522 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\views.py changed, reloading.
+2023-04-23 13:36:55,625 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 13:37:24,267 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\views.py changed, reloading.
+2023-04-23 13:37:26,377 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 13:37:39,022 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\views.py changed, reloading.
+2023-04-23 13:37:40,791 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 13:40:07,123 django.request WARNING  Unauthorized: /api/token/
+2023-04-23 13:40:12,920 django.request WARNING  Unauthorized: /api/token/
+2023-04-23 13:41:15,757 django.request WARNING  Unauthorized: /api/token/
+2023-04-23 13:47:02,284 django.request WARNING  Not Found: /ticket/api/accept-ticket/[object Object]/
+2023-04-23 13:58:09,062 django.request WARNING  Unauthorized: /api/token/
+2023-04-23 14:27:10,698 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 14:36:28,527 django.request WARNING  Unauthorized: /api/token/
+2023-04-23 14:39:12,682 django.request WARNING  Not Found: /favicon.ico
+2023-04-23 17:04:44,898 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\serializers.py changed, reloading.
+2023-04-23 17:04:46,693 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:04:49,023 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\serializers.py changed, reloading.
+2023-04-23 17:04:50,693 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:04:52,978 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\serializers.py changed, reloading.
+2023-04-23 17:04:54,698 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:05:11,474 django.request WARNING  Unauthorized: /ticket/api/ticket-queue/
+2023-04-23 17:05:31,633 django.request WARNING  Unauthorized: /api/token/
+2023-04-23 17:11:04,667 django.request WARNING  Bad Request: /ticket/api/create-ticket/
+2023-04-23 17:11:12,101 django.request WARNING  Bad Request: /ticket/api/create-ticket/
+2023-04-23 17:11:59,731 django.request WARNING  Bad Request: /ticket/api/create-ticket/
+2023-04-23 17:14:22,684 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\serializers.py changed, reloading.
+2023-04-23 17:14:24,354 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:15:01,137 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\serializers.py changed, reloading.
+2023-04-23 17:15:02,960 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:16:23,648 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\serializers.py changed, reloading.
+2023-04-23 17:16:25,473 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:16:52,000 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\views.py changed, reloading.
+2023-04-23 17:16:53,690 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:24:50,643 django.request WARNING  Unauthorized: /api/token/
+2023-04-23 17:48:45,934 django.utils.autoreload INFO     D:\Projects\basic\backend\core\settings.py changed, reloading.
+2023-04-23 17:48:47,669 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:49:10,354 django.utils.autoreload INFO     D:\Projects\basic\backend\core\settings.py changed, reloading.
+2023-04-23 17:49:12,050 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:49:19,112 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:58:20,869 django.utils.autoreload INFO     D:\Projects\basic\backend\core\settings.py changed, reloading.
+2023-04-23 17:58:22,710 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:58:53,566 django.utils.autoreload INFO     D:\Projects\basic\backend\core\settings.py changed, reloading.
+2023-04-23 17:58:55,268 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:59:10,175 django.utils.autoreload INFO     D:\Projects\basic\backend\core\settings.py changed, reloading.
+2023-04-23 17:59:12,165 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:59:19,278 django.utils.autoreload INFO     D:\Projects\basic\backend\core\settings.py changed, reloading.
+2023-04-23 17:59:20,949 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 17:59:26,951 django.utils.autoreload INFO     D:\Projects\basic\backend\core\settings.py changed, reloading.
+2023-04-23 17:59:28,601 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 18:01:20,327 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\serializers.py changed, reloading.
+2023-04-23 18:01:22,058 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 18:15:48,699 django.utils.autoreload INFO     D:\Projects\basic\backend\ticket\models.py changed, reloading.
+2023-04-23 18:15:50,521 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 18:23:34,125 django.request WARNING  Unauthorized: /ticket/api/all-closed-tickets/
+2023-04-23 18:25:09,261 django.utils.autoreload INFO     D:\Projects\basic\backend\account\models.py changed, reloading.
+2023-04-23 18:25:11,050 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-04-23 18:35:44,613 django.request WARNING  Unauthorized: /api/token/
+2023-04-23 18:37:41,464 django.utils.autoreload INFO     D:\Projects\basic\backend\account\serializers.py changed, reloading.

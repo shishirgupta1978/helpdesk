@@ -16,8 +16,8 @@ export const HomePage = () => {
               <p>
                 If you have any issues or questions, please submit a ticket and our support team will get back to you as soon as possible.
               </p>
-              <MDBBtn tag={NavLink} to='/login' color='primary'>
-                Login
+              <MDBBtn tag={NavLink} to='/dashboard' color='primary'>
+                Getting Started
               </MDBBtn>
             </MDBCardBody>
           </MDBCard>

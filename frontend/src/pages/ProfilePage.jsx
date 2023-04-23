@@ -5,8 +5,8 @@ import jwt_decode from "jwt-decode";
 import { FaSignInAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {Spinner,Title} from "../../components";
-import {MyContext,axiosApi} from "../..";
+import {Spinner,Title} from "../components";
+import {MyContext,axiosApi} from "..";
 
 export const UpdateTicket = () => {
 	const {uid} =useParams()
@@ -50,7 +50,7 @@ export const UpdateTicket = () => {
 		const config = { method: "get", headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token } }
 		if(!loadData.is_success)
 		{
-			axiosApi(`ticket/api/update-ticket/${id}`, config, setLoadData);
+			axiosApi(`api/auth/users/me`, config, setLoadData);
 		}
 		else{
 			setFormData({title:loadData.result.title,description:loadData.result.description})
@@ -66,6 +66,7 @@ export const UpdateTicket = () => {
 	const submitHandler = (e) => {
 		e.preventDefault();
         const token=localStorage.getItem("Tokens") ? JSON.parse(localStorage.getItem("Tokens"))?.access :''
+		console.log(formData);
 		const config = { method: "put", headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token}, data:formData }
 		axiosApi(`ticket/api/update-ticket/${uid}`, config, setData);
 
@@ -76,7 +77,7 @@ export const UpdateTicket = () => {
 	{loadData.is_loading && <Spinner />}
 	
 	{loadData.is_success && <>
-			<Title title="Update Ticket" />
+			<Title title="Update Profile" />
 			<br/>
 			<MDBContainer className="bg-white p-4"  style={{width:'350px',margin:"auto", borderRadius:"15px"}}>
 			

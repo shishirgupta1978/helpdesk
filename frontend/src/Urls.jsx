@@ -23,7 +23,7 @@ export function Urls() {
       <Route path="dashboard" element={<PrivateRoute><DashBoardPage/></PrivateRoute>}/>
       <Route path="ticket_queue" element={<PrivateRoute><TicketQueue/></PrivateRoute>}/>
       <Route path="workspace" element={<PrivateRoute><Workspace/></PrivateRoute>}/>
-      <Route path="all_closed_tickets" element={<PrivateRoute><AllClosedTickets/></PrivateRoute>}/>
+      <Route path="close_tickets" element={<PrivateRoute><AllClosedTickets/></PrivateRoute>}/>
       <Route path="all_tickets" element={<PrivateRoute><AllTickets/></PrivateRoute>}/>
       <Route path="create_ticket" element={<PrivateRoute><CreateTicket/></PrivateRoute>}/>
       <Route path="ticket_details/:uid" element={<PrivateRoute><TicketDetails/></PrivateRoute>}/>

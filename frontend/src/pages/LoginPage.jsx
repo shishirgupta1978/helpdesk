@@ -36,7 +36,7 @@ export const LoginPage = () => {
 			localStorage.setItem("Tokens",JSON.stringify(data.result));
      	    setContext({...context,"user":jwt_decode(data.result?.access)});
 
-			navigate("/");
+			navigate("/dashboard");
 
 		}
 

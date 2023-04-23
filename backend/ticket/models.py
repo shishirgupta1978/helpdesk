@@ -2,6 +2,11 @@ import uuid
 from django.db import models
 from account.models import User
 
+class Department(models.Model):
+    name= models.CharField(max_length=25)
+    users=models.ManyToManyField(User)
+
+
 class Ticket(models.Model):
     status_choices=(('Active','Active'),('Completed','Completed'),('Pending','Pending'))
     ticket_number=models.UUIDField(default=uuid.uuid4,)

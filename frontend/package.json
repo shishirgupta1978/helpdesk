@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "env-cmd -f ../.env.local vite",
     "build": "vite build",
     "preview": "vite preview",
     "start": "env-cmd -f ../.env.local vite --port 3000"
