@@ -9,6 +9,7 @@ from account.views import send_enquiry_email,MyTokenObtainPairView,MyTokenRefres
 
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/send_enquery/", send_enquiry_email, name="send-enquiry"),
@@ -16,6 +17,7 @@ urlpatterns = [
     path('api/auth/', include('djoser.urls.jwt')),
     path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain'),
     path('api/token/refresh/', MyTokenRefreshView.as_view(), name='token_refresh'),
+    path('ticket/', include('ticket.urls'), name='token_refresh'),
 ]
 
 urlpatterns +=  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

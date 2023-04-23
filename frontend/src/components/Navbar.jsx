@@ -1,39 +1,19 @@
-import React,{useEffect, useState} from 'react'
+import React,{useState,useContext} from 'react'
+import {MyContext} from '..';
 import {NavLink} from 'react-router-dom'
-import { useDispatch, useSelector } from "react-redux";
-import {FaBars,FaTimes} from 'react-icons/fa'
 import { useNavigate } from "react-router-dom";
-import { Spinner } from './Spinner';
-import {
-    MDBContainer,
-    MDBNavbar,
-    MDBNavbarBrand,
-    MDBNavbarToggler,
-    MDBIcon,
-    MDBNavbarNav,
-    MDBNavbarItem,
-    MDBNavbarLink,
-    MDBBtn,
-    MDBDropdown,
-    MDBDropdownToggle,
-    MDBDropdownMenu,
-    MDBDropdownItem,
-    MDBCollapse,
-  } from 'mdb-react-ui-kit';
-  
+import {MDBContainer,MDBNavbar,MDBNavbarBrand, MDBNavbarToggler, MDBIcon, MDBNavbarNav, MDBNavbarItem, MDBNavbarLink, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBCollapse } from 'mdb-react-ui-kit';
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
-import { GiHouse } from "react-icons/gi";
-import { logout, reset } from "../features/auth/authSlice";
 
 export const Navbar = () => {
+  const { context,setContext } = useContext(MyContext);
   const navigate = useNavigate();
-	const dispatch = useDispatch();
 
-	const { user,isLoading } = useSelector((state) => state.auth);
 
 	const logoutHandler = () => {
-		dispatch(logout());
-		dispatch(reset());
+    localStorage.removeItem("Tokens");
+     	    setContext({...context,"user":null});
+
 		navigate("/");
 	};
 
@@ -47,7 +27,7 @@ export const Navbar = () => {
         <MDBContainer fluid>
           <MDBNavbarBrand tag={NavLink} to="/">TICKETEASE</MDBNavbarBrand>
   
-                  {user && user ? <>   <MDBNavbarToggler
+                  {context.user && context.user ? <>   <MDBNavbarToggler
             aria-controls='navbarSupportedContent'
             aria-expanded='false'
             aria-label='Toggle navigation'
@@ -63,27 +43,27 @@ export const Navbar = () => {
                   Home
                 </MDBNavbarLink>
               </MDBNavbarItem>
-              {user.is_staff ? <>
+              {context.user.is_staff ? <>
               <MDBNavbarItem>
-                <MDBNavbarLink  tag={NavLink} to="/properties">Ticket Queue</MDBNavbarLink>
+                <MDBNavbarLink  tag={NavLink} to="/ticket_queue">Ticket Queue</MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink  tag={NavLink} to="/properties">Workspace</MDBNavbarLink>
+                <MDBNavbarLink  tag={NavLink} to="/workspace">Workspace</MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink  tag={NavLink} to="/properties">Close Tickets</MDBNavbarLink>
+                <MDBNavbarLink  tag={NavLink} to="/close_tickets">Close Tickets</MDBNavbarLink>
               </MDBNavbarItem></> :<>
               <MDBNavbarItem>
-                <MDBNavbarLink  tag={NavLink} to="/properties">Create Ticket</MDBNavbarLink>
+                <MDBNavbarLink  tag={NavLink} to="/create_ticket">Create Ticket</MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink  tag={NavLink} to="/properties">View Ticket</MDBNavbarLink>
+                <MDBNavbarLink  tag={NavLink} to="/all_tickets">View Tickets</MDBNavbarLink>
               </MDBNavbarItem></>}
               
               <MDBNavbarItem>
               <MDBDropdown>
                 <MDBDropdownToggle  tag={NavLink} className='nav-link' role='button'>
-                {user.email}
+                {context.user.email}
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
                   <MDBDropdownItem tag={NavLink}  className='nav-link bg-dark' to="/profile">Profile</MDBDropdownItem>
@@ -92,13 +72,8 @@ export const Navbar = () => {
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavbarItem>
-
-
-
-  
             </MDBNavbarNav>
-  
-          </MDBCollapse></>:<MDBNavbarLink className='nav-link bg-dark text-white' tag={NavLink} to="/login">Login</MDBNavbarLink>}
+          </MDBCollapse></>:<MDBNavbarLink className='nav-link bg-dark text-white' tag={NavLink} to="/login"><FaSignInAlt/> Login</MDBNavbarLink>}
         </MDBContainer>
       </MDBNavbar>
       </>

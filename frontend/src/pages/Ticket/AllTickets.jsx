@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState,useContext } from 'react'
+import { NavLink } from 'react-router-dom'
+import {MyContext,axiosApi} from "../..";
+
 
 export const AllTickets = () => {
-    const tickets = []
+    const [data,setData]=useState({'is_loading':false,'is_error':false,'is_success':false,'result':null,'message':null})
+    const { context,setContext } = useContext(MyContext);
+useEffect(()=>{
+    const token=localStorage.getItem("Tokens") ? JSON.parse(localStorage.getItem("Tokens"))?.access :''
+    const config={method:"get",headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token}}
+    console.log(config)
+axiosApi("ticket/api/all-tickets/",config,setData);
+},[context.user])
+
+
   return (
-    <div className="card mx-auto" style="width: 76rem;">
+    
+    <div className="card mx-auto" style={{width: '76rem'}}>
     <div className="card-body">
         <h5 className="card-title mb-3">All Tickets</h5>
         <table className="table table-bordered">
@@ -18,8 +31,8 @@ export const AllTickets = () => {
                 </tr>
             </thead>
             <tbody>
-                {tickets.map((ticket)=> <tr key={ticket.id}><td><small>{ticket.ticket_number}</small></td><td><small>{ticket.title}</small></td><td><small>{ticket.date_created}</small></td><td><small>
-                    {ticket.assigned_to ? ticket.assigned_to : "Not Assigned"}</small></td><td>{ticket.ticket_status == 'Active'? <span className="badge bg-success">Active</span>:""}{ticket.ticket_status == 'Pending' ? <span className="badge bg-warning">Pending</span> :""}{ticket.ticket_status == 'Completed' ? <span className="badge bg-danger">Completed</span> :""}</td><td><small><a href="\ticket-details\ticket.pk">View Details</a></small></td></tr>) }
+                {data['is_success'] && data['result'] && data['result'].map((ticket)=> <tr key={ticket.id}><td><small>{ticket.ticket_number}</small></td><td><small>{ticket.title}</small></td><td><small>{ticket.date_created}</small></td><td><small>
+                    {ticket.assigned_to ? ticket.assigned_to : "Not Assigned"}</small></td><td>{ticket.ticket_status == 'Active'? <span className="badge bg-success">Active</span>:""}{ticket.ticket_status == 'Pending' ? <span className="badge bg-warning">Pending</span> :""}{ticket.ticket_status == 'Completed' ? <span className="badge bg-danger">Completed</span> :""}</td><td><small><NavLink to={`/ticket_details/${ticket.id}`}>View Details</NavLink></small></td></tr>) }
                 
             </tbody>
         </table>

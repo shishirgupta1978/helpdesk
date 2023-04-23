@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import {MDBInput,MDBBtn,MDBCol,MDBContainer,  MDBRow} from "mdb-react-ui-kit";
+import jwt_decode from "jwt-decode";
 import { FaSignInAlt } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {Spinner,Title} from "../components";
-import { login, reset } from "../features/auth/authSlice";
+import {MyContext,axiosApi} from "..";
 
 export const LoginPage = () => {
+	const [data, setData] = useState({ 'is_loading': false, 'is_error': false, 'is_success': false, 'result': null, 'message': null })
+	const { context,setContext } = useContext(MyContext);
 
 	const [formData, setFormData] = useState({
 		email: '',
@@ -24,18 +26,21 @@ export const LoginPage = () => {
 	
 	
 
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { user, isLoading, isError, isSuccess, message } = useSelector(
-		(state) => state.auth
-	);
 
 	useEffect(() => {
-		if (user) {
-			navigate("/dashboard");
+		if(data.is_success)
+		{
+			console.log(data);
+			localStorage.setItem("Tokens",JSON.stringify(data.result));
+     	    setContext({...context,"user":jwt_decode(data.result?.access)});
+
+			navigate("/");
+
 		}
-	}, [user]);
+
+	}, [data.is_success,context.user]);
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -46,9 +51,9 @@ export const LoginPage = () => {
 		if (!formData.password) {
 			toast.error("A password must be provided");
 		}
-
-
-		dispatch(login(formData));
+		const config = { method: "post", headers: { "Content-Type": "application/json" }, data:formData }
+		axiosApi(`api/token/`, config, setData);
+	
 	};
 
 	return (
@@ -62,7 +67,7 @@ export const LoginPage = () => {
 							</h3>
 							<hr className="hr-text" />
 
-				{isLoading && <Spinner />}
+				{data.is_loading && <Spinner />}
 				<MDBRow className="mt-3">
 					<MDBCol className="justify-content-center">
 						<form onSubmit={submitHandler}>

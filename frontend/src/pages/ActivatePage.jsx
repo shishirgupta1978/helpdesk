@@ -1,29 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { MDBBtn, MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import { FaCheckCircle } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {Spinner,Title} from "../components";
-import { activate, reset } from "../features/auth/authSlice";
+import {axiosApi} from "..";
 
 export const ActivatePage = () => {
 	const { uid, token } = useParams();
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const [data, setData] = useState({ 'is_loading': false, 'is_error': false, 'is_success': false, 'result': null, 'message': null })
 
-	const { isLoading, isError, isSuccess, message } = useSelector(
-		(state) => state.auth
-	);
 
 	useEffect(() => {
 
-		if (isSuccess) {
-			navigate("/");
+		if (data.is_success) {
+			toast.success("Your account has been activated! You can login now");
+			navigate("/login");
 		}
 
-		dispatch(reset());
-	}, [isSuccess, message, navigate, dispatch]);
+
+	}, [data.is_success]);
 
 	const submitHandler = () => {
 		const userData = {
@@ -31,8 +28,10 @@ export const ActivatePage = () => {
 			token,
 		};
 
-		dispatch(activate(userData));
-		toast.success("Your account has been activated! You can login now");
+		const config = { method: "post", headers: { "Content-Type": "application/json" }, data:userData }
+			axiosApi(`/api/auth/users/activation/`, config, setData);
+	
+		
 	};
 
 	return (
@@ -49,7 +48,7 @@ export const ActivatePage = () => {
 						</section>
 					</MDBCol>
 				</MDBRow>
-				{isLoading && <Spinner />}
+				{data.is_loading && <Spinner />}
 				<MDBRow className="mt-3">
 					<MDBCol className="text-center">
 						<MDBBtn

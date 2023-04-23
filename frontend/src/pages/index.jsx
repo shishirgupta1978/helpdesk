@@ -1,7 +1,4 @@
-export * from "./AboutPage"
-export * from "./ContactPage"
 export * from "./HomePage"
-export * from "./ProjectsPage"
 export * from "./Layout"
 export * from './DashBoardPage'
 export * from './Ticket'
@@ -10,6 +7,5 @@ export * from "./RegisterPage"
 export * from "./ForgetPassword"
 export * from "./ResetPassword"
 export * from "./ChangePasswordPage"
-export * from "./TicketQueue"
 export * from "./NotFound"
 export * from "./ActivatePage"

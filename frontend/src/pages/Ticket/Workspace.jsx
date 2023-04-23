@@ -4,7 +4,7 @@ export const Workspace = () => {
   const tickets=[]
 
   return (
-<div className="card mx-auto" style="width: 76rem;">
+<div className="card mx-auto" style={{width: '76rem'}}>
     <div className="card-body">
         <h5 className="card-title mb-3">Ticket Workspace</h5>
         <table className="table table-bordered">

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {MDBInput,MDBBtn,MDBCol,MDBContainer, MDBRow} from "mdb-react-ui-kit";
 import { FaUser } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {Spinner,Title} from "../components";
-import { changepassword, reset } from "../features/auth/authSlice";
+import { axiosApi } from "..";
 
 export const ChangePasswordPage = () => {
+	const [data, setData] = useState({ 'is_loading': false, 'is_error': false, 'is_success': false, 'result': null, 'message': null })
+	
+
 	const [formData, setFormData] = useState({
 		current_password: '',
 		new_password: '',
@@ -21,16 +23,17 @@ export const ChangePasswordPage = () => {
 		});
 	  };
 
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { user, isLoading, isError, isSuccess, message } = useSelector(
-		(state) => state.auth
-	);
 
 	useEffect(() => {
-		dispatch(reset());
-	}, [isError, isSuccess,  navigate, dispatch]);
+		if(data.is_success)
+		{
+			toast.success("Password Changed Successfully.")
+			navigate("/login")
+		}
+		
+	}, [data.is_success]);
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -38,7 +41,10 @@ export const ChangePasswordPage = () => {
 		if (formData.new_password !== formData.re_new_password) {
 			toast.error("Passwords do not match");
 		} else {
-			dispatch(changepassword(formData));
+			const token=localStorage.getItem("Tokens") ? JSON.parse(localStorage.getItem("Tokens"))?.access :''
+			const config = { method: "post", headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token }, data:formData }
+			axiosApi(`api/auth/users/set_password/`, config, setData);
+	
 		}
 	};
 	return (
@@ -52,7 +58,7 @@ export const ChangePasswordPage = () => {
 							</h3>
 							<hr className="hr-text" />
 	
-				{isLoading && <Spinner />}
+				{data.is_loading && <Spinner />}
 				<MDBRow className="mt-3">
 					<MDBCol className="justify-content-center">
 						<form onSubmit={submitHandler}>

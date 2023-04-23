@@ -1,12 +1,15 @@
-import React from 'react'
-import {useSelector } from 'react-redux';
+import React,{useContext} from 'react'
+import {MyContext} from '..';
+
 
 export const DashBoardPage = () => {
-    const {user}= useSelector((state)=>state.auth)
+    const { context } = useContext(MyContext);
+  
+  
 
   return (
     <div style={{paddingTop:"6rem"}}>
-         { user.is_staff  ?  <section className="container mt-5">
+         {context.user && (context.user.is_staff  ?  <section className="container mt-5">
             <div className="p-5 mb-4 bg-light rounded-3">
                 <div className="container-fluid py=5">
                     <h1 className="display-5 fw-bold">Engineer Dashboard</h1>
@@ -24,7 +27,7 @@ export const DashBoardPage = () => {
                 </div>
 
             </div>
-        </section>}
+        </section>)}
         
       
     </div>

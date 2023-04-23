@@ -1,6 +1,7 @@
 import datetime
 from django.shortcuts import render,redirect
-from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.decorators import api_view,permission_classes
 from django.contrib import messages
 from .models import Ticket
 from .form import CreateTicketForm,UpdateTicketForm
@@ -8,6 +9,8 @@ from account.models import User
 from django.contrib.auth.decorators import login_required
 from .serializers import TicketSerializer
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 #view ticket details
 @login_required
@@ -122,48 +125,142 @@ def all_closed_tickets(request):
 
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def api_ticket_details(request,pk):
+    try:
+        ticket= Ticket.objects.get(pk=pk)
+    except Ticket.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    try:
+        t=User.objects.get(username=ticket.created_by)
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    tickets_per_user=t.created_by.all()
+    ticket_serializer=TicketSerializer(ticket)
+    serializer = TicketSerializer(tickets_per_user, many=True)
+    return Response({'ticket':ticket_serializer.data,'tickets_per_user':serializer.data}, status=status.HTTP_200_OK)
+
+    
+    
+    
+
+
+
+"""For Customer"""
+#creating a ticket
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def api_create_ticket(request):
+    data=request.data
+    data["created_by"]=request.user.pk
+    data["ticket_status"]="Pending"
+    print(data)
+    serializer = TicketSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+
+@api_view(['GET','PUT'])
+@permission_classes([IsAuthenticated])
+def api_update_ticket(request,pk):
+    if request.method=="GET":
+        try:
+            ticket=Ticket.objects.get(pk=pk,created_by=request.user,is_resolved=False)
+            serializer = TicketSerializer(ticket)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Ticket.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method=="PUT":    
+        try:
+            ticket=Ticket.objects.get(pk=pk,created_by=request.user,is_resolved=False)
+        except Ticket.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        try:
+           
+            ticket.title=request.data["title"]
+            
+            ticket.description=request.data["description"]
+            
+            ticket.save()
+            
+            return Response({"message":'success'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"message":str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            
+        
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def api_all_tickets(request):
     tickets= Ticket.objects.filter(created_by=request.user).order_by("-date_created")
     serializer = TicketSerializer(tickets, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 
+""" For Enginners"""
+
+# view ticket queue
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def api_ticket_queue(request):
     tickets= Ticket.objects.filter(ticket_status='Pending')
     serializer = TicketSerializer(tickets, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+
+# accept a ticket from the queue
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def api_accept_ticket(request,pk):
+    try:
+        ticket= Ticket.objects.get(pk=pk)
+    except Ticket.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    ticket.assigned_to=request.user
+    ticket.ticket_status="Active"
+    ticket.accepted_date=datetime.datetime.now()
+    ticket.save()
+    return Response({"message":"Ticket has been accepted. Please resolve as soon as possible!"},status=status.HTTP_200_OK)
+
+# close a ticket
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def api_close_ticket(request,pk):
+    try:
+        ticket= Ticket.objects.get(pk=pk)
+    except Ticket.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+   
+    ticket.ticket_status="Completed"
+    ticket.is_resolved=True
+    ticket.closed_date=datetime.datetime.now()
+    ticket.save()
+
+    return Response({"message":"Ticket has been resolved. Thank you brilliant Support Engineer!"},status=status.HTTP_200_OK)
+
+
+# tickets engineer is working on
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def api_workplace(request):
     tickets= Ticket.objects.filter(assigned_to=request.user,is_resolved=False)
     serializer = TicketSerializer(tickets, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
+# all closed/resolved tickets
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def api_all_closed_tickets(request):
     tickets= Ticket.objects.filter(assigned_to=request.user,is_resolved=True)
     serializer = TicketSerializer(tickets, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['POST'])
-def api_create_ticket(request):
-    data = JSONParser().parse(request)
-    data["created_by"]=request.user.id
-    data.ticket_status="Pending"
-    serializer = SnippetSerializer(data=data)
-    if serializer.is_valid():
-        serializer.save()
-        return JsonResponse(serializer.data, status=201)
-    return JsonResponse(serializer.errors, status=400)
-
-
-
-
-
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
