@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useContext } from "react";
-import {MDBInput,MDBBtn,MDBCol,MDBContainer,MDBTextArea,  MDBRow} from "mdb-react-ui-kit";
+import {MDBInput,MDBBtn,MDBCol,MDBContainer,  MDBRow} from "mdb-react-ui-kit";
 import { useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { FaSignInAlt } from "react-icons/fa";
@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import {Spinner,Title} from "../components";
 import {MyContext,axiosApi} from "..";
 
-export const UpdateTicket = () => {
+export const ProfilePage = () => {
 	const {uid} =useParams()
 	const [id,setId]  = useState(uid);
   
@@ -17,8 +17,8 @@ export const UpdateTicket = () => {
 	const { context,setContext } = useContext(MyContext);
 
 	const [formData, setFormData] = useState({
-		title: '',
-		description: '',
+		first_name: '',
+		last_name: '',
 	  });
 
 	  const handleChange = (event) => {
@@ -42,7 +42,7 @@ export const UpdateTicket = () => {
 		if(data.is_success)
 		{
 			toast.success("Record update successfully.")
-			navigate("/all_tickets/")
+			navigate("/home/")
 		}
 		
 
@@ -53,7 +53,7 @@ export const UpdateTicket = () => {
 			axiosApi(`api/auth/users/me`, config, setLoadData);
 		}
 		else{
-			setFormData({title:loadData.result.title,description:loadData.result.description})
+			setFormData({first_name:loadData.result.first_name,last_name:loadData.result.last_name,documents:loadData.result.documents});
 
 
 		}
@@ -66,7 +66,7 @@ export const UpdateTicket = () => {
 	const submitHandler = (e) => {
 		e.preventDefault();
         const token=localStorage.getItem("Tokens") ? JSON.parse(localStorage.getItem("Tokens"))?.access :''
-		console.log(formData);
+		
 		const config = { method: "put", headers: {"Content-Type": "application/json", "Authorization": "Bearer " + token}, data:formData }
 		axiosApi(`ticket/api/update-ticket/${uid}`, config, setData);
 
@@ -82,17 +82,18 @@ export const UpdateTicket = () => {
 			<MDBContainer className="bg-white p-4"  style={{width:'350px',margin:"auto", borderRadius:"15px"}}>
 			
 							<h3 className="text-center">
-								<FaSignInAlt /> Update Ticket
+								<FaSignInAlt /> Update Profile
 							</h3>
 							<hr className="hr-text" />
-
-				
 				<MDBRow className="mt-3">
 					<MDBCol className="justify-content-center">
 						<form onSubmit={submitHandler}>
-							<MDBInput  label='Title' type='text' name='title' value={formData.title} onChange={handleChange} className="mb-3" required/>
-							<MDBTextArea  label='Description' type='text' rows={4} name='description' value={formData.description} onChange={handleChange}  className="mb-3" required/>
-							<MDBBtn type="submit" color="dark" className="mt-3 w-100">Submit</MDBBtn>
+							<img src='' />
+							<MDBInput  label='First Name' type='text' name='first_name' value={formData.first_name} onChange={handleChange} className="mb-3"/>
+							<MDBInput  label='Last Name' type='text' name='last_name' value={formData.last_name} onChange={handleChange} className="mb-2"/>
+							Select Document: {formData.documents ? <a href="">Download</a> :""}
+							<MDBInput  type='file' name='documents'  className="mb-2"/>	
+							<MDBBtn type="submit" color="dark" className="mt-3 w-100">Update</MDBBtn>
 						</form>
 					</MDBCol>
 				</MDBRow>

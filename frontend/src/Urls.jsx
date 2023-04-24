@@ -1,5 +1,5 @@
 import {Layout, HomePage, LoginPage,RegisterPage,ActivatePage, ForgetPassword, DashBoardPage, NotFound,ChangePasswordPage,ResetPassword} from './pages'
-import {AllClosedTickets,AllTickets,CreateTicket, TicketDetails, TicketQueue,UpdateTicket,Workspace } from './pages';
+import {AllClosedTickets,AllTickets,CreateTicket, TicketDetails, TicketQueue,UpdateTicket,Workspace,ProfilePage } from './pages';
 import { PrivateRoute } from './components'
 import {Routes,Route,Navigate} from 'react-router-dom'
 import { ToastContainer } from "react-toastify";
@@ -23,6 +23,7 @@ export function Urls() {
       <Route path="dashboard" element={<PrivateRoute><DashBoardPage/></PrivateRoute>}/>
       <Route path="ticket_queue" element={<PrivateRoute><TicketQueue/></PrivateRoute>}/>
       <Route path="workspace" element={<PrivateRoute><Workspace/></PrivateRoute>}/>
+      <Route path="profile" element={<PrivateRoute><ProfilePage/></PrivateRoute>}/>
       <Route path="close_tickets" element={<PrivateRoute><AllClosedTickets/></PrivateRoute>}/>
       <Route path="all_tickets" element={<PrivateRoute><AllTickets/></PrivateRoute>}/>
       <Route path="create_ticket" element={<PrivateRoute><CreateTicket/></PrivateRoute>}/>

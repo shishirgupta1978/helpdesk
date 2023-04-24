@@ -26,6 +26,8 @@ class UserSerializer(serializers.ModelSerializer):
             "profile_pic",
             "documents",
             "is_staff",
+            "first_name",
+            "last_name"
         ]
 
     
